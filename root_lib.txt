@@ -1,0 +1,27 @@
+//List of libraries to use while compiling in root
+#include "TRint.h"
+#include <string.h>
+#include <iostream>
+#include <stdio.h>
+#include <fstream>
+#include <TROOT.h>
+#include <TChain.h>
+#include <TFile.h>
+#include "TObject.h"
+#include "TString.h"
+#include "TCanvas.h"
+#include "TGraph.h"
+#include <TVector3.h>
+#include "TLorentzVector.h"
+#include "TGraphErrors.h"
+#include "TSystem.h"
+#include "TSpectrum.h"
+#include "TH1I.h"
+#include "TH2F.h"
+#include "TH1F.h"
+#include "TH3F.h"
+#include "TF1.h"
+#include "TMath.h"
+#include "TPaveStats.h"
+#include <stdlib.h>
+#include <iomanip>
