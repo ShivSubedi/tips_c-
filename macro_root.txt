@@ -1,0 +1,15 @@
+
+//Programming structure writing a macro in C++ and executing via root
+
+C++ code starts with following format i.e.
+void filename1 ()
+{
+ <body of program>
+}
+and saved in .C format (say filename2.C)
+
+(a) If the filename1 matches with name in which it is saved i.e. filename2 , we can execute the .C file directly as: root <filename2.C>
+(b) else, we follow following steps
+1. root -l <enter>              //initiates root
+2. .L filename2.C <enter>       //loads the file
+3. filename1() <enter>          //executes the macro
