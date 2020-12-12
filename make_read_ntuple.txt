@@ -1,0 +1,47 @@
+//This code shows how to create ntuples in a .root file and also how to read the .root file
+//ntuple provides a way to save different set of information in a common file (eg. <filename>.root ) in different brances
+//These branches can later be accessed and read to plot and compare the information saved in different branches
+
+
+A. How to create .root file and ntuple
+
+void <filename_macro> ()
+{ //void loop begins
+  TFile *file = new TFile("my_root_file.root", "RECREATE");
+  TNtuple *ntuple = new TNtuple("ntuple","my file","temp:rho:j:time:mass");   //here temp, rho, j, time and mass are different branches
+
+  //loop begin (finding the values of variables in the root file
+
+  //for filling root file
+  float ntuple_var[]=                //ntuple variables always need to be defined as float
+ {
+   temp,rho,j,time,mass
+ };
+ ntuple->Fill(ntuple_var); //filling entries in the root file
+
+  //loop ends (for finding the values of variables in the root file
+
+
+ file->Write(); //writing the root file
+} //void loop ends
+
+
+
+//****************************************************************************************************************
+
+B. How to read the .root file and ntuple
+
+TFile *plot1 = TFile::Open("path of root file.root");
+
+Float_t temp, rho, max_mass, time, j;  //all variables in the root file assigned Float_t
+
+TTree *ntuple = (TTree *) plot1->Get("ntuple");
+ntuple->SetBranchAddress("temp",&temp); //first one is from the root file, second one is what variable first pair is assigned in following codes
+ntuple->SetBranchAddress("rho",&rho);
+ntuple->SetBranchAddress("max_mass",&max_mass);
+ntuple->SetBranchAddress("time",&time);
+ntuple->SetBranchAddress("j",&j);
+
+Int_t nentr = (Int_t)ntuple->GetEntries();      //Gets the total entries in the ntuple file
+
+ntuple->GetEntry(nn); //nn goes through each entry
