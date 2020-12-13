@@ -1,0 +1,57 @@
+
+//See 'make_read_ntuple.txt' for how to create and read ntuple first.
+//This section of code shows how to fill in the entries of the ntuple.
+//Idea is to a graph corresponding to one ntuple branch entry, and go on plotting graphs for all branches
+//Since there are total 119 branches, each canvas is divided into (4,4) i.e. 16 graphs in a single canvas
+//The canvas number increments until the last grph is drawn.
+
+//Drawing a graph in an array, getting input from the entries in the ntuple
+const int c1=8;  //need total of 8 canvas for 119 graphs (119/16=7.4)         //VARIABLE
+TCanvas *c[c1];
+TGraph *gr[200];                                                                          //VARIABLE
+
+
+Int_t nentr = (Int_t)ntuple->GetEntries(); //goes through each entry in the ntuple
+//array should be greater than "no of mass points * profile.data" eg: here 119*189=22491
+const int n3=50000;
+Float_t tt[n3], rr[n3],hh[n3];
+
+
+
+//GIVES MAX LIMIT OF 128 GRAPHS IN 8 CANVAS (16 GRAPHS IN EACH CANVAS)
+//IF NUMBER OF MASS POINTS EXCEEDS 119, INCREASE THE NUMBER OF CANVAS ACCORDINGLY
+for (int ii=0; ii<c1; ii++)                                                                 //VARIABLE
+{
+  c[ii]=new TCanvas();  //defining canvas in a loop
+  c[ii]->Divide(4,4); //dividing the canvas in 4-rows and 4-columns, i.e. 16 total plots in a single canvas
+
+  for (int jj=0;jj<16;jj++)   //defining number of plots per canvas i.e. 16 in total plots in each canvas
+	{
+	  int num= jj+16*ii;  //to number the plots consecutively following all canvas
+
+	  if (num<=118)    //limiting the no of plots to 119 and ensures blank graphs are not drawn in the last canvas
+	  {
+	    // kk=kk+1;
+	    int kk=0;
+	    for (Int_t nn=0; nn<nentr; nn++)
+		  {
+		    ntuple->GetEntry(nn);    //gets all the entry corresponding to a branch and repeats for next branch
+
+		    if (j==float(num+1))     //identifies the branch number (j) equal to the graph number
+		    {
+		      c[ii]->cd(jj+1);
+		      tt[kk]=time;
+		      rr[kk]=rho;
+		      // hh[kk]=temp;
+		      kk=kk+1;
+
+
+		    }  //if loop ends
+
+		  }   //nn loop for entries
+
+
+	   gr[num] =new TGraph(119,tt,rr); //Defining graph in a loop as well, 119-> no of data points, tt->X-axis, rr->Y-axis
+    }
+  }
+}
