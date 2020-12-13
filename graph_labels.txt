@@ -1,0 +1,21 @@
+
+//This code snippet shows how to draw and label the axis of graph and define marker properties.
+//Before this code all the graph points are already filled in the graph in array is 'num'.
+
+gPad->SetLogx(1); //set X-axis in log scale
+gPad->SetLogy(1);//set Y-axis in log scale
+
+//Here graph is defined as an array of 'num'. It can be singly defined as well
+gr[num] ->Draw("AP"); //draws graph in data points. 'A' defines first graph and 'P' is for points format
+gr[num]->SetName("rho_time_plot"); //setting name of graph
+gr[num]->SetMarkerStyle(7);  //defines shape of the data point in graph
+gr[num]->SetMarkerSize(1.5);  //defining ghe size of marker
+gr[num]->SetMarkerColor(6);  //defining the color of marker
+
+gr[num]->GetXaxis()->SetTitle("time"); //defining X-axis name
+gr[num]->GetXaxis()->SetTitleSize(0.05); //defining title size of X-axis
+gr[num]->GetYaxis()->SetTitle("Density"); //defining the Y-axis name
+
+gr[num]->GetXaxis()->CenterTitle(); //centering of X-axis title
+gr[num]->GetYaxis()->SetTitleSize(0.05); //defining title size of Y-axis
+gr[num]->GetYaxis()->CenterTitle();//centering of X-axis title
