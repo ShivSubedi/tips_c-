@@ -1,0 +1,51 @@
+//Shiv Subedi
+//This snippet of code is developed to define and draw a graph
+
+
+//A. For TGraph
+
+ //1. Read in the data values in two columns via "ifstream"
+ ifstream datafile;
+ datafile.open("xy.data");  //xyz.data is the name of datafile, contains two coloums let x and y
+
+
+ //2. Read the variables in an array while going through the data loop.
+ x[i]=
+ y[i]=
+
+ //3.Define a canvas to plot graph
+ TCanvas *can=new TCanvas();
+
+ //4. Draw the graph with no array in the variable.
+ gr->Draw(n,x,y)
+
+
+ //5. For multiple graphs in the same canvas, repeat steps 2 and below (except 3) and while drawing set Draw("PSame")
+
+ //6. For plotting errors as well
+  (a) Replace TGraph -> TGraphErrors
+  (b) add columns after c11, for errors in X-axis and/or Y-axis
+
+
+
+ //B. For TGraph2D
+ //Follow either of the following two procedures
+
+
+  Procedure 1: (Is applicable for TGraph as well)
+    1.Define the graph before the data loop.
+     //TGraph2D *gr = new TGraph2D();
+    2. fill the data in the graph (similar to histogram) while in the data loop
+     //gr->SetPoint(n,x,y,z); where n is the increment after each data variation
+    3. Draw the graph outside the data loop
+    //TCanvas *can2=new TCanvas();
+    //gr->Draw("CONT4Z");  //For drawing the contour plot
+
+
+  Procedure 2: (Is applicable for TGraph as well)
+   1. fill the variables for which graph is to be drawn in an array inside the data loop
+	  //x[n]= ..;  where n is the increment after each data variation
+	  // y[n]= ..;
+	  // z[n]= ..;
+   2.Draw the TGraph2D outside the data loop after defining the canvas
+    //TGraph2D *gr = new TGraph2D(n, x, y, z);
