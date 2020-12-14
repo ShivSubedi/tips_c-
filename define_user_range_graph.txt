@@ -1,0 +1,28 @@
+//Shiv Subedi
+//This snippet of code shows how to define the range of axes in graph by user
+
+//*************************************************************************************************************************
+Defining the axis range of graphs
+//*************************************************************************************************************************
+A. for TGraph
+
+//Range cannot be defined in a graph, for that we need to draw a dummy histogram and draw the graph in the same histogram
+new TCanvas(); //defining canvas
+TH2F *h1=new TH2F("h1","",100,4e9,1e10,100,10e3,10e9);//defining dummy histogram (,,xbin,xlow,xhigh,ybin, ylow, yhigh)
+h1->Draw();//drawing dummy histogram
+TGraph *gr1=new TGraphErrors(x1,c21,c11,c22,c12); //defining graph
+gr1-> Draw("PSame");//drawing graph into the histogram
+
+
+B. for TGraph2D
+
+//range cannot be defined with the dummy histogram for the TGraph2D.
+// When a TGraph2D is drawn with one of the 2D histogram drawing option, an intermediate 2D histogram is filled using the Delaunay triangles to interpolate the data set.
+//Hereby to define the range and name the X- and Y-axis need to adopt following syntax
+gr->GetHistogram()->SetAxisRange(1.5,2.0,"Y");   //"Y" is for Y axis, which fixes the range for X-axis as well
+gr->GetHistogram()->GetXaxis()->SetTitle("Time (sec) ");
+gr->GetHistogram()->GetYaxis()->SetTitle("Integrated mass");
+gr->SetMinimum(1e-10);  //sets the minimum value of the variable in the Z-axis
+gPad->SetLogz(1);  //sets the variable in the Z-axis in log scale
+gStyle->SetPalette(55,0); //fixes the color scheme in the contours
+//Position of the pallete cannot be fixed for TGRAph2d and needs to be moved manually once the graph is drawn.
