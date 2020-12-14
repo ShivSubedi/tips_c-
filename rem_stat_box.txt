@@ -1,0 +1,7 @@
+//**************************************************************************************
+  //to not display stat box in histograms
+//**************************************************************************************
+
+hist->SetOptStat(0); //works for TH1F
+hist->SetStats(0);  //works for TH2F and TH1D
+gStyle->SetOptStat(0) //removes the stat box for all hist in macro

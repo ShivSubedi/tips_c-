@@ -6,12 +6,3 @@ legend1->AddEntry(gr,"description of gr","p"); //p-point, l- line, gr refers to 
 legend1->SetTextFont(72);   //setting font of the legend
 legend1->SetTextSize(0.04); //setting the text size of legend
 legend1->Draw();
-
-
-//**************************************************************************************
-  //to not display stat box in histograms
-//**************************************************************************************
-
-hist->SetOptStat(0); //works for TH1F
-hist->SetStats(0);  //works for TH2F and TH1D
-gStyle->SetOptStat(0) //removes the stat box for all hist in macro
