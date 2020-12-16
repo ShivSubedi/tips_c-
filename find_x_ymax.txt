@@ -1,0 +1,17 @@
+//Shiv Subedi
+//This snippet of code is written to find the x-axis value corresponding to max of y-axis value
+
+//This has to be done in two steps:
+
+//1. Find the max value in the Y-axis
+double ymax= TMath::MaxElement(gr[num]->GetN(),gr[num]->GetY());
+
+
+//2. For a graph, first fiind the corresponding value in the X-axis corresponding to the max Y-axis value  and compare it with ymax value obtained from previous syntax
+for (Int_t ll=0; ll<n; ll++) //loop for all n points in each graph to find the ymax //VARAIBLE
+  {
+    if (gr->GetY()[ll]==ymax)
+    xmin=gr->GetX()[ll];
+  }
+
+cout<<"Xmin="<<xmin<<endl;
