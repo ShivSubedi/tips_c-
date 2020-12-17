@@ -1,0 +1,12 @@
+//Shiv Subedi
+//This snippet of code shows how to read in a data file and pipe in the values of the datafile to a variable
+//This variable can then later be called in a different loop and then plotted against another variable if desired.
+
+//pipe in values from datafile to an array of next variable
+ifstream datafile;
+datafile.open("x.data");  //x.data is the name of datafile
+
+for(i=1;i<=n;i++) //n->total number of values in the datafile
+{
+ datafile>> time[i];
+}
