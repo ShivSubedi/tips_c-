@@ -1,0 +1,52 @@
+//Shiv Subedi
+//This snippet of code is written to read different columns of a data file and perform needed operations.
+//This can be done via various loop statements,eg:
+//For-loop -> use this loop if you know the number of rows
+//while loop -> you can use this loop until end of data file without knowing the number of rows
+//Below shows how to use above conditions:
+
+
+
+A. While loop
+
+ifstream datafile;
+datafile.open ("xyz.data"); //xyz.data is the name of data file
+count = 0;
+while (!datafile.eof())        //goes until the end of datafile
+{  //while loop begins
+  datafile>>c1[count]>>c2[count]>>c3[count]>>c4[count]>>c5[count]>>c6[count];
+
+  // operations on column files
+
+
+  //BREAKING OUT OF A LOOP
+  if (c1[count] < 0.000001) {break;}
+  datafile.ignore();
+  count=count+1;
+
+  }   //while loop ends
+
+datafile.close();
+count=count-1;
+
+//Above while loop gives one count more than the actual reading in the data at the end
+//The last data file is a very very small number randomly assigned.
+//To avoid the last data file, use the break statement as shown with a small value assigned.
+
+
+
+B. For loop
+ifstream datafile;
+datafile.open ("xyz.data"); //xyz.data is the name of data file
+
+for (int count = 1; count < n; count++ ) //n->number of rows
+{  //For loop begins
+  datafile>>c1[count]>>c2[count]>>c3[count];
+
+ // operations on column files
+
+ datafile.ignore();
+
+}   //For loop ends
+
+datafile.close();
