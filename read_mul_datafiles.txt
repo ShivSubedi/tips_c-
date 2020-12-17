@@ -1,0 +1,27 @@
+//Shiv Subedi
+//This snippet of code is written to demonstrate how to read multiple data files in a loop
+//and also perform operatios in their respective data values
+
+
+//Reading columnwise data values from multiple datafiles
+for (int i =1; i<=n; i++) //n -> total number of data files
+{                                                          //data loop begins
+  ifstream datafile;
+  datafile.open (Form("xyz%d.data",i));         //Data files are arranged as xyz1.data, xyz2.data, ....xyzn.data
+  count = 0;
+  while (!datafile.eof())                     //goes until the end of data values for each data file
+  {  //while loop begins
+   datafile>>c1[count]>>c2[count]>>c3[count]>>c4[count]>>c5[count]>>c6[count];  //do this for all the colums in the data file
+
+   // operations on column files
+
+   datafile.ignore();
+   count=count+1;
+
+  }   //while loop ends
+
+ datafile.close();
+ count=count-1;
+
+
+} //data loop ends
