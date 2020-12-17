@@ -1,0 +1,9 @@
+//Shiv Subedi
+//This snippet of code shows how to create an outputfile and fill in the values to the outputfile
+
+ofstream outputfile;
+outputfile.open ("xyz.data");
+
+//Some operations getting the output data
+
+outputfile<<setprecision(20)<<x<<"      "<<y<<"      "<<z<<endl;  //Here setprecision sets the number of significant digits to 20
