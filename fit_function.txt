@@ -1,0 +1,76 @@
+//Shiv Subedi
+//This section of code is written to fit a spectrum/peak and get the fit values
+
+//1. Fill the histogram with your data points
+
+//2. Define a range in the histogram including peak and background that you are interested to fit
+lb = ..
+ub = ..       //lb and ub define the lower and upper bound of peak+background
+
+//3. Set the range of the histogram to the above bounds
+his->GetXaxis()->SetRange(lb,ub);
+
+//4. Define a TF1 (fit function) as below in the range defined above;
+//Here, peak is fitted with 'gaus' function and 'background' is fitted via polynomial of order 1
+TF1 *fSpectrum = new TF1("fSpectrum", "gaus+pol1(3)", lb, ub);
+
+//5. Initialize the parameters of the fit function defined above
+//Here, first three parameters are for the 'gaus' function and the last two parameters are for the 'pol(1)'
+fSig_3740->SetParNames("Strength","Mean","Sigma","y-int","slope");
+fSig_3740->SetParameters(33,1583,2, 12, 0);
+
+//6. Fit the histogram with the TF1 function
+his->Fit("fSpectrum","","",lb,ub);
+
+//7. Set the TF1 function to the fitted parameters
+Double_t param_sig[5];
+fSpectrum->GetParameters(param_sig);
+
+
+//8. Plot the histogram and the fit function
+his->Draw("e");
+fSpectrum_3740->Draw("SAME");
+
+//9. Accessing the fit parameters and results
+TF1 *fitRes=his->GetFunction("fSpectrum");
+Double_t Strength=fitRes->GetParameter(0);
+Double_t Mean_sig=fitRes->GetParameter(1);
+Double_t Sigma=fitRes->GetParameter(2);
+Double_t Slope=fitRes->GetParameter(3);
+Double_t y_int=fitRes->GetParameter(4);
+
+//10. Output the parameters from fit
+cout<<"Mean from signal: "<<Mean<<endl;
+cout<<"Sigma from signal: "<<Sigma<<endl;
+....
+
+
+//*****************************************************************************************************
+
+
+//Above snippet just fits the spectrum (peak + background) and displays the fit over the histogram
+//If you need to plot the background over spectrum and also get the background subtracted peak, follow as below.
+
+//a. Steps 1-3 remain same
+
+//b. In step 4, define:
+TF1 *fSignal= new TF1("fSignal", "gaus", lb, ub);
+TF1 *fBackground = new TF1("fBackground", "pol1", lb, ub);
+
+//c. Steps 5,6 remain the same
+
+//d. In step 7 add:
+fSignal->SetParameters(&param_sig[0]); //sets the parameters from 0 to 2 i.e. strength, mean and sigma
+fBackground->SetParameters(&param_sig[3]); //sets the parameters 3 to 4 i.e. slope and y-intercept
+
+//e. Subtract background: In between steps 7 and 8, add:
+TH1D *his_bck_sub = new TH1D(*his);   //clones a new histogram from the previous one
+his_bck_sub->Sumw2(); //performs square of the weights, essential in errror propagation
+his_bck_sub->Add(fBackground, -1); subtracts the background
+
+//f. In step 8, to draw in the same canvas, add:
+his_bck_sub->Draw("SAME");
+fSignal->Draw("SAME");
+fBackground->Draw("SAME");
+
+//g. Steps 9 and 10 remain the same 
