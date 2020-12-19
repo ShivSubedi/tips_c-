@@ -1,7 +1,7 @@
+//Shiv Subedi
+//This snippet of code shows the programming structure of a macro in C++ and executing it via root
 
-//Programming structure writing a macro in C++ and executing via root
-
-C++ code starts with following format i.e.
+//C++ code starts with following format i.e.
 void filename1 ()
 {
  <body of program>
