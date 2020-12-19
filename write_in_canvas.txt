@@ -1,0 +1,11 @@
+//Shiv Subedi
+//This snippet of code shows how to write in a canvas
+
+
+TPaveText *pt = new TPaveText(.6,.6,.9,.9,"NDC");
+pt->AddText("A");
+//pt->AddText("F(t) = #sum_{i=-#infty}^{#infty}A(i)cos#[]{#frac{i}{t+i}}");
+pt->Draw();
+pt->SetFillStyle(0); //no fill to the textbox
+pt->SetShadowColor(0);//no shadow color to the text box
+pt->SetLineWidth(0); //no line width to the shadow box
