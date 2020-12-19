@@ -15,6 +15,8 @@ TGraph *gr1=new TGraphErrors(x1,c21,c11,c22,c12); //defining graph
 gr1-> Draw("PSame");//drawing graph into the histogram
 
 
+//----------------------------------------------------------------------------------------
+
 B. for TGraph2D
 
 //range cannot be defined with the dummy histogram for the TGraph2D.
