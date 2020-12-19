@@ -1,7 +1,6 @@
 //Shiv Subedi
-//This snippet of code shows hoe to draw a 2-D histogram in color contours
-//Fill in the data values in the Histogram while reading the data files
-//draw the histogram
+//This snippet of code shows how to draw a 2-D histogram in color contours and also define the postion of z-axis palette
+//Also shows how to plot the graph point on top of the color contours
 
 ifstream datafile;
 datafile.open("xyz.dat");
@@ -43,3 +42,11 @@ palette->SetX1NDC(0.90);
 palette->SetX2NDC(0.941);
 d1->Modified();
 d1->Update();
+
+
+
+// *****************************************************************************************
+//Adding graph points in the same canvas as histogram
+
+1.  In the above syntax, SetPoint the graph data points after filling in the histogram values
+2.  After drawing in the histogram, call in TGraph, and draw "PSame" in the same canvas
