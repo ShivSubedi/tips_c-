@@ -1,0 +1,9 @@
+//Shiv Subedi
+//This snippet of code shows how to save a file in .epsi format
+//The highlight of this format is it cuts unncessary empty edges around a plot
+//and also saves a plot in high definition
+
+1. Savefile in ps format
+2. ps2epsi filename.ps  //saves file in epsi format
+3. ps2pdf -dEPSCrop filename.epsi  //saves file in epsi.pdf format
+4. Open filename.epsi.pdf
