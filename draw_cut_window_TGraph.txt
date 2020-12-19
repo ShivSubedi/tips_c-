@@ -1,0 +1,26 @@
+//Shiv Subedi
+//This snippet of code shows how to define a cut window on top of TGraph
+
+
+//1. Mark the window by two vertical lines along the y-axis
+TLine *t1=new TLine(x1,y1, x1,y2); //draws a line at a particular point (x1) in X-axis in a window along Y-axis
+t1->Draw();
+
+TLine *t2=new TLine(x2,y1, x2,y2); //draws a line at a particular point (x2) in X-axis in a window along Y-axis
+t2->Draw();
+
+
+//2. Define a cut window based on above lines and shade it
+TGraph *cutg= new TGraph(4);
+cutg->SetPoint(0,x1, y1);
+cutg->SetPoint(1,x2,y1);
+cutg->SetPoint(2,x2,y2);
+cutg->SetPoint(3,x1,y2);
+cutg->SetFillStyle(3002);
+cutg->SetFillColor(15);
+cutg->Draw("fsame");
+
+
+//3. Label the cut window
+TLatex *l=new TLatex(10,1e3,"Gamow window"); //writing in the window
+l->Draw();
