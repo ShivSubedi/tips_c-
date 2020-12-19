@@ -1,0 +1,10 @@
+//Shiv Subedi
+//This snippet of code shows how to call ntuple from the terminal and draw the graphs of different branches
+
+
+1. root <filename.root>
+2. TBrowser b
+3. ntuple->Draw("branch1:branch2","*");
+
+//Step 3 can also be defined as:
+ntuple->Draw("Branch1:Branch2","condition", "*");
