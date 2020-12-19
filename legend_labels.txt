@@ -6,7 +6,6 @@ TLegend *legend1=new TLegend(0.6,0.8,0.9,0.9); //x_l, y_l, x_u, y_u
 legend1->AddEntry(gr,"description of gr","p"); //p-point, l- line, gr refers to graph drawn before
 legend1->SetTextFont(72);   //setting font of the legend
 legend1->SetTextSize(0.04); //setting the text size of legend
-legend1->Draw();
-
 legend1->SetBorderSize(0); //removes the border from legend
 legend1->SetFillStyle(0); //makes the legend box transparent
+legend1->Draw();
