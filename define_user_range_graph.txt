@@ -9,6 +9,7 @@ A. for TGraph
 //Range cannot be defined in a graph, for that we need to draw a dummy histogram and draw the graph in the same histogram
 new TCanvas(); //defining canvas
 TH2F *h1=new TH2F("h1","",100,4e9,1e10,100,10e3,10e9);//defining dummy histogram (,,xbin,xlow,xhigh,ybin, ylow, yhigh)
+h1->SetStats(0);  //drawing no stat box of the histogram
 h1->Draw();//drawing dummy histogram
 TGraph *gr1=new TGraphErrors(x1,c21,c11,c22,c12); //defining graph
 gr1-> Draw("PSame");//drawing graph into the histogram

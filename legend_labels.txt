@@ -1,3 +1,4 @@
+//Shiv Subedi
 //This snippet of code shows how to draw the legend and varying its labels.
 
 
@@ -6,3 +7,6 @@ legend1->AddEntry(gr,"description of gr","p"); //p-point, l- line, gr refers to 
 legend1->SetTextFont(72);   //setting font of the legend
 legend1->SetTextSize(0.04); //setting the text size of legend
 legend1->Draw();
+
+legend1->SetBorderSize(0); //removes the border from legend
+legend1->SetFillStyle(0); //makes the legend box transparent
