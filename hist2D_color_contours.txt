@@ -1,0 +1,45 @@
+//Shiv Subedi
+//This snippet of code shows hoe to draw a 2-D histogram in color contours
+//Fill in the data values in the Histogram while reading the data files
+//draw the histogram
+
+ifstream datafile;
+datafile.open("xyz.dat");
+
+int x1=0;
+TH2F *h1=new TH2F("h1","",119,4,10,119,4,10); //X-axis bins, X-axis range, Y-axis bins, Y-axis range
+while(!datafile.eof())
+{
+ datafile1>>c1[x1]>>c2[x1]>>c3[x1];
+ h1->Fill((c1[x1]/1e9),TMath::Log10(c2[x1]),c3[x1]); //c1-> X-axis, c2->Y-axis, c3->Z-axis
+
+ datafile1.ignore();
+ x1=x1+1;
+}
+datafile1.close();
+x1=x1-1;
+
+
+TCanvas *d1=new TCanvas();
+h1->SetStats(0);
+
+h1->SetTitle("..");
+h1->GetXaxis()->SetTitle("..");
+h1->GetYaxis()->SetTitle("..");
+h1->SetMinimum(1e-10);      //define it to the minimum value in the z-axis
+h1->GetXaxis()->CenterTitle();
+h1->GetYaxis()->CenterTitle();
+h1->Draw("colz");
+// h1->Draw("contz");
+
+
+gPad->SetLogz(1);  //sets the z-axis in log
+gStyle->SetPalette(55,0);  //(ncolors,colors)
+
+//to set the position of the palette
+d1->Update();
+TPaletteAxis *palette = (TPaletteAxis*)h1->GetListOfFunctions()->FindObject("palette");
+palette->SetX1NDC(0.90);
+palette->SetX2NDC(0.941);
+d1->Modified();
+d1->Update();
