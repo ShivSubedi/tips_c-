@@ -1,0 +1,19 @@
+//Shiv Subedi
+//This snippet of code shows how to divide a canvas into two for plotting two graphs on top of each other
+
+TCanvas *can= new TCanvas();
+can->Divide(1,2,0,0);        //Divides the canvas into one column and two rows
+
+can->cd(1);                  //calls the first row
+//Draw the first graph here ..
+
+gPad->SetBottomMargin(0.0);    //Sets the bottom margin of first graph to be 0.0
+
+can->cd(2);                  //calls the second row
+
+//Draw the second graph here ..
+
+gPad->SetTopMargin(0.0);     //Sets the top margin of plot of second graph to be zero.
+
+
+//NB: SetLeftMargin(..), SetRightMargin(..) can also be used in similar fashion
