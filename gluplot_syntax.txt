@@ -1,0 +1,4 @@
+//Shiv Subedi
+//This snippet of code shows how to use gnuplot to draw a plot from terminal
+
+ plot "xyz.data" usi column1:column2 w l t 'title'
