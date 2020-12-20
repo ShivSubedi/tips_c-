@@ -1,0 +1,11 @@
+//Shiv Subedi
+//This snippet of code shows the labels that can be defined with gStyle
+//When gStyle defined with these labels in the beginning of macro, this will be effective for all the plots drawn by the macro
+
+gStyle->SetTextFont(72);  //sets the font of all the text except axis labels
+gStyle->SetTitleFont(62,"xy"); //applies the font style in xy axis, can be applyed for z axis as well 'xyz'
+gStyle->SetTitleSize(0.05,"xy"); //applies the font size in xy axis
+gStyle->SetPadTickX(1); //sets the tick mark on both side of the X-axis
+gStyle->SetPadTickY(1);//sets the tick mark on both side of the Y-axis
+gStyle->SetTitleOffset(0.7, "xy"); //sets the offset of title from the axis
+gStyle->SetLineWidth(4);  ////sets the X-axis, Y-axis and graph line size 
