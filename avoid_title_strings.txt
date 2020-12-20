@@ -1,0 +1,10 @@
+//Shiv Subedi
+//This snippet of code shows how to avoid reading the strings present as heading in any data file
+
+
+1.Open the datafile via 'ifstream'
+ ifstream datafile;
+ datafile.open ("xyz.data");
+2. string first_string;    //assign a parameter in the string name, do it for as many rows of strings
+3. std::getline(datafile, first_string);  //getline the srings name in the data file, do it for as many rows of strings
+4. Read the datafile as normal now.
