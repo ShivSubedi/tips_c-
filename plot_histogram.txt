@@ -1,0 +1,33 @@
+//Shiv Subedi
+//This snippet of code is developed to show how to draw 1-D and 2-D histograms
+
+A: 1-D histograms:
+
+1. Define a 1-D histogram before the data loop
+ // TH1F *hist_1D = new TH1F("histogram name","histogram title", nbins, x_low, x_up);
+
+2. Fill the 1-D histogram with the single variable within the data loop
+  // hist_1D->Fill(c2[count]);
+
+3. Draw the 1-D histogram after closing the data loop and defining the canvas.
+  // new TCanvas();
+  //hist_1D->Draw();
+
+
+ ////////////////////////////////////////////////////////////////////////////////////////////
+ 
+B. 2-D histograms:
+
+1. Define a 2-D histogram before the data loop
+  //TH2F *hist_2D=new TH2F("histogram name","histogram title",n_xbins,x_low,x_high,n_ybins,y_low,y_high);
+
+2. Fill the 1-D histogram with the single variable within the data loop
+  //hist_2D->Fill(x,y,z);
+
+3. Draw the 1-D histogram after closing the data loop and defining the canvas.
+  // TCanvas *can1=new TCanvas();
+  //hist_2D->Draw("colz");    //draws the histogram with color contours
+
+
+NB: It is possible that while adjusting the bin size when the axis doesn't have equal footing in drawing the contour plots in the 2-D histograms,
+one bin may be filled with the data from adjacent bins. Hereby, TGraph2D is a better option.
