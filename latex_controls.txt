@@ -1,0 +1,6 @@
+//Shiv Subedi
+//This snippet of code presents some controls of using latex in c++
+
+#frac{}{} //applying fraction to any two expressions
+#left{  #right}  //applying big curly brackets before the fraction
+#alpha, #beta, #gamma //write the greek symbols alpha, beta, gamma   
