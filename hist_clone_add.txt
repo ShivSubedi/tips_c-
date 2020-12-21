@@ -1,0 +1,8 @@
+//Shiv Subedi
+//This snippet of code shows how to clone a histogram and also how to add the histograms.
+
+1. Cloning a histogram
+ TH1F *hist_new=new TH1F(*hist_old);
+
+2. Adding  histograms
+  hist_all->Add(hist[n]); //this adds all histograms (i.e. hist) in loop of 'n' to hist_all
