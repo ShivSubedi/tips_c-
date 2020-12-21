@@ -1,0 +1,11 @@
+//Shiv Subedi
+//This snippet of code shows various ways to round a number
+
+1. Rounding up a number to nearest whole number with no decimal points
+  TMath::Nint(Variable)
+
+2. Rounding a number to its upper nearest whole number
+  ceil(Variable)
+
+3. Rounding a number to its lower nearest whole number
+  floor(Variable)
