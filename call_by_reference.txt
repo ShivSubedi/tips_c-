@@ -1,0 +1,55 @@
+//Shiv Subedi
+//This snippet of code shows how to call by reference a. single value b. array of values from one file to another
+
+
+
+//*********************************************************************
+    //CALL BY REFERENCE 'single value' IN C++
+//**********************************************************************
+     #include "xyz.C"
+    void abc()  //saved in a file abc.C
+    {
+      Double_t out1;
+      xyz(&out1);  //here &passes the address and * receives it in another program
+      cout<<out1<<endl;
+    }
+
+
+    void xyz(Double_t *out)  //saved in a file xyz.C
+    {
+      //let's say has an output i.e. 'out' that needs to be passed in the void 'abc' program
+       *out = .....
+    }
+
+
+ //*********************************************************************
+    //CALL BY REFERENCE 'array' IN C++
+  //**********************************************************************
+    #include "xyz.C"
+ void abc()  //saved in a file abc.C
+    {
+      Double_t out1[max];
+      Double_t my_res[max];
+      xyz(out1);  //here &passes the address and * receives it in another program
+
+      for (Int_t run1 =1; run1<=max; run1++)
+	{
+          my_res[run1] = out1[run1];
+        }
+
+      cout<<out1<<endl;
+    }
+
+
+    void xyz(Double_t out[])  //saved in a file xyz.C
+    {
+      //let's say has an array of output i.e. 'out[]' that needs to be passed in the void 'abc' program
+      for (Int_t run =1; run<=max; run++)
+	{
+          out[run] = .....
+        }
+    }
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//see concatenate in two arrays in c++ for similar results
