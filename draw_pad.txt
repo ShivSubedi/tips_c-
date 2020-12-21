@@ -1,0 +1,34 @@
+//Shiv Subedi
+//This snippet of code shows how to draw a pad in a canvas
+//This pad can be used to display any text information, draw a zoomed section of histogram etc.
+
+//Follow following steps
+
+//1. Define a pad as below
+ TPad *pad_info = new TPad ("pad name","pad title", x_low, y_low, x_high,y_high);
+ gamma_info ->SetFillStyle(4000);   //picking a style of TPad
+
+//2. Draw the pad
+ pad_info->Draw();
+
+//3. Selec the pad to perform any action now on it
+ pad_info->cd();      //Select the pad to fill in data
+
+//4a. Printing variables on canvas
+ TLatex *pad_text = new TLatex(.5,0.80,Form("#gamma_{peak}= %g",Counts_3740_sig_back));
+ pad_text->SetTextFont(43);
+ pad_text->SetTextSize(20);
+ pad_text->Draw();
+
+//4b. Drawing a section of master histogram onto the pad
+ TH1F *hist_new = new TH1F(*hist_old);
+ hist_new->GetXaxis()->SetRange(x_low,x_high);      //select the x-axis range of the histogram to zoom onto the pad
+ hist_new->Draw("Same");    //Draw the section of new histogram in the pad
+ his_new->SetTitle("Title of the section of master histogram");
+
+
+// 5. Modify the pad for every change made
+ pad_info->Modified();
+
+// 6. Update the master canvas with the new pad information
+ can->Update();
