@@ -1,0 +1,28 @@
+//Shiv Subedi
+//This snippet of code shows how to save a canvas as a gif, pdf
+
+
+//Saving a canvas as gif for iterative runs in a loop
+can->SaveAs("plot.gif+10");
+
+//Saving canvas as pdf. When placed inside loop, gives the pdf of the total runs in loop
+can->SaveAs("plot.pdf");
+
+
+//Saving individual pdf's for each run in the loop
+//saving the canvas as multiple pages in pdf
+//If there are 10 graphs to save,
+
+//1.  for first graphs do:
+  if (cnt_MC == 0)
+  {
+    can_eff_plot->SaveAs("plot_first_graph.pdf[","pdf");
+  }
+//2.for the intermediate graphs do:
+  can_eff_plot->SaveAs("plot_graph_2_9.pdf","pdf");
+  }
+//3. For the last graph do:
+  if (cnt_MC == (tot_MC-1))
+  {
+   can_eff_plot->SaveAs("plot_tenth_graph.pdf]","pdf");
+  }
