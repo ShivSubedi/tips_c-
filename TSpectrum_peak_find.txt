@@ -1,0 +1,124 @@
+//Shiv Subedi
+//This snippet of code shows how to use TSpectrum to find the peaks in a given spectrum of data
+
+//USe TSpectrum to find the peak candidates
+//*****************************************************************************************************
+//Int_t TSpectrum::Search(const TH1 * hin, Double_t sigma, Option_t * option, Double_t threshold)
+//*****************************************************************************************************
+    // <b>One-dimensional peak search function</b>
+    //  <p>
+    //  This function searches for peaks in source spectrum in hin
+    //  The number of found peaks and their positions are written into
+    //  the members fNpeaks and fPositionX.
+    //  The search is performed in the current histogram range.
+    //  <p>
+    //  Function parameters:
+    //  <ul>
+    //  <li> hin:       pointer to the histogram of source spectrum
+    //  <li> sigma:   sigma of searched peaks, for details we refer to manual
+    //  <li> threshold: (default=0.05)  peaks with amplitude less than
+    //      threshold*highest_peak are discarded.  0<threshold<1
+
+
+//1. Draw the histogram with spectrum of data you want to find peaks of
+h_tspec = ..
+
+//2. Define how many peaks you want to find
+Int_t npeaks = ...
+
+//3. Define TSpectrum for above defined number of peaks
+TSpectrum *sp_peaks = new TSpectrum (npeaks);
+Int_t npeaks_found = sp_peaks->Search(h_tspec,10, "", 0.0000001 );  //(sigma, option, threshold)
+printf("Found %d candidate peaks to fit\n",npeaks_found);
+Double_t* x_pos_peak = sp_peaks->GetPositionX();
+Double_t* y_pos_peak = sp_peaks->GetPositionY();
+
+//4. Finds peak in descending order of the amplitude of the threshold)highest peak.
+// Bubble sort to put them in order of x position (mean of the peak)
+Bool_t swapped = false;
+for(Int_t j=0; j<npeaks_found-1; j++)
+{
+  swapped = false;
+  for(Int_t k=0; k<npeaks_found-j-1; k++)
+  {
+    Double_t x_sort_peak = 0.;
+    Double_t y_sort_peak = 0.;
+    if(x_pos_peak[k] > x_pos_peak[k+1])
+    {
+      x_sort_peak = x_pos_peak[k];
+      x_pos_peak[k] = x_pos_peak[k+1];
+      x_pos_peak[k+1] = x_sort_peak;
+
+      y_sort_peak = y_pos_peak[k];
+      y_pos_peak[k] = y_pos_peak[k+1];
+      y_pos_peak[k+1] = y_sort_peak;
+
+      swapped = true;
+    }
+  }
+  if(swapped == false)
+  break;
+}
+
+
+//5.Output of the x- and y- coordinates of the peaks which have been now sorted in ascending order of X-axis
+for(Int_t j=0; j<npeaks_found; j++)
+{
+  cout << "x_pos_peak[" << j << "] = " << x_pos_peak[j] <<"                 "<<" y_pos_peak" << j << "] = " << y_pos_peak[j] << endl;
+}
+
+//6. For the mean defined by "x_pos_peak", a range can be set on either side of peak to define the total width of peak
+
+//7. After defining the peak range, same can be done to define the background range
+
+
+
+//***********************************************************************************************************************************
+
+//TSpectrum can also be used to define the background for a spectrum as follows:
+//*****************************************************************************************************
+//TH1 *TSpectrum:: Background(const TH! *h, int numberIterations, Option_t *option)
+//*****************************************************************************************************
+    // <b>One-dimensional background estimation function.</b>
+    // <p>
+    // This function calculates the background spectrum in the input histogram h.
+    // The background is returned as a histogram.
+    // <p>
+    // Function parameters:
+    // <ul>
+    // <li> h: input 1-d histogram
+    // <li> numberIterations, (default value = 20)
+    //    Increasing numberIterations make the result smoother and lower.
+    // <li> option: may contain one of the following options:
+    //    <ul>
+    //    <li> to set the direction parameter
+    //    "BackIncreasingWindow". By default the direction is BackDecreasingWindow
+    //    <li> filterOrder-order of clipping filter,  (default "BackOrder2")
+    //                -possible values= "BackOrder4"
+    //                                  "BackOrder6"
+    //                                  "BackOrder8"
+    //    <li> "nosmoothing"- if selected, the background is not smoothed
+    //         By default the background is smoothed.
+    //    <li> smoothWindow-width of smoothing window, (default is "BackSmoothing3")
+    //                -possible values= "BackSmoothing5"
+    //                                  "BackSmoothing7"
+    //                                  "BackSmoothing9"
+    //                                  "BackSmoothing11"
+    //                                  "BackSmoothing13"
+    //                                  "BackSmoothing15"
+    //    <li> "Compton" if selected the estimation of Compton edge
+    //                will be included.
+    //    <li> "same" : if this option is specified, the resulting background
+    //               histogram is superimposed on the picture in the current pad.
+    //    NOTE that the background is only evaluated in the current range of h.
+    // ie, if h has a bin range (set via h->GetXaxis()->SetRange(binmin,binmax),
+    // the returned histogram will be created with the same number of bins
+    // as the input histogram h, but only bins from binmin to binmax will be filled
+    // with the estimated background.
+
+
+    // Estimate background using TSpectrum::Background
+    TH1 *hb = sp_peaks-> Background(h_tspec_back,20);        //(his_name, no of iterations)
+    hb->SetLineColor(2);  //2->Red
+    hb->SetLineWidth(3);
+    hb->Draw("same");
