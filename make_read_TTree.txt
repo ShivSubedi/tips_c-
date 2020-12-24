@@ -1,0 +1,143 @@
+//Shiv Subedi
+//This snippet of code is written to demonstrate how to write a TTree in a .root file and read it later
+
+
+//A. For writing TTree and root file
+
+
+//1. defining the root file
+TFile *root_file = new TFile ("name_of_root_file.root", "RECREATE");
+TTree *My_tree= new TTree("My_tree","tree with events");  //creating a tree
+
+
+
+//2. Define the branches in TTree
+Double_t Branch1, Branch2;
+My_tree->Branch("Branch1", &Branch1);
+My_tree->Branch("Branch2", &Branch2);
+... (Do this for as many branches you want to make) ...
+
+//3. Assign data values to the branches in a loop and fill the TTree
+for (Int_t i=0; i<n; i++)
+{
+ datafile>>col[i];
+ Branch1 = col[i];
+
+ My_tree->Fill(); //filling the tree with parameters
+}
+
+//4. Write the TTree
+My_tree->Write();
+
+//5. Close the root file and datafile
+root_file->Close();
+datafile.close();
+
+
+//***************************************************************************************************
+
+B. For Reading the root file and TTree
+
+//1. Define the path to the root file
+TFile *my_root_file = new TFile("Path of the root file");
+
+//2. Get the tree defined previously
+TTree *my_tree = (TTree*)my_root_file -> Get("My_tree");
+
+//3. Set the address of the branches defined previously
+Double_t Branch1, Branch2;
+my_tree->SetBranchAddress("Branch1", &Branch1);
+my_tree->SetBranchAddress("Branch2", &Branch2);
+
+//4. Get the total entries in the root file
+Int_t  n_entries = my_tree-> GetEntries();
+
+//5. For accessing the entries of the root file, loop over to n_entries and Get entry
+//If want to fill histogram of two branches, defile the histogram here
+for (Int_t j = 1; j<=n_entries; j++)
+{
+  my_tree->GetEntry(j);
+  hist->Fill(Branch1,Branch2);
+}
+
+//6. Close the TFile
+my_root_file->Close();
+
+
+
+
+
+//******************SOME AUTOMATE TIPS in writing root file and TTree**************************
+
+//Let's say you have a case where you have several data files
+//And you want to make each data file as one branch in a root file
+//In such a case, we follow follow steps:
+
+//a. Make a ".txt" file with information of the run number of data files in a single row
+eg: for runs names "runLG001", "runLG002" etc, text file can include information of 001, 002 etc.
+However, to not be misread as an octal number, defile these run# as 'TString'
+
+//b. Open the ".txt" file as follows:
+ifstream run_list;
+run_list.open(Form("path to text file"));
+
+//c. for automating purpose, you can also give a common path to the folder including all the data runs
+TString dir_path = Form("path to the base directory");
+
+//d. Run the loop to read the ".txt"  file which runs along for 1 row
+runlist>>run1>>run2;
+
+//e. Inside the loop, for each data runs, open the datafile as follows:
+ifstream data_run1;
+data_run1.open(Form("%s/runLG%s.Spe",dir_path.Data(), run1.Data()));
+
+//f. for the data in each of the datafiles (eg: data_file1), fill it inside the branch of a TTree
+
+
+//g. Defining tree name for successive data files (automate)
+char data_filename[runs];  //While in loop, runs defines the number of rows of datafile
+sprintf(data_filename,"res_scan%s_Ener%s.root",scan_no.Data(), energy.Data());
+TFile *root_file = new TFile (data_filename, "RECREATE");
+TTree *my_tree= new TTree("Name of tree","tree with events");  //creating a tree
+
+
+
+//***************SOME AUTOMATE TIPS in reading tree **********************************
+//If you want to automate, reading information from each branch in a loop and plotting histograms
+//follow following steps
+
+//a. Follow steps 1-4 of reading a TTree file above
+
+//b. Get the list of all the branches as follows:
+TObjArray *branchList;
+branchList  = my_tree->GetListOfBranches();
+
+//c. Get the total number of branches as follows:
+Int_t nBranch     = my_tree->GetNbranches();
+cout<<"No_of_branches: "<<nBranch<<endl;
+
+//d. Define the following variables
+TString varnames[nBranch];
+TLeaf *var[nBranch];
+TH1D *h1_master[nBranch];  //for drawing histograms of each branch
+char name[nBranch];
+char title[nBranch];
+Double_t value_br [n_chan]; //n_chan is the total number of channels
+
+//e. Run a loop of variable 'br' through 'nBranch' and operate following inside the loop
+varnames[br] = branchList->At(br)->GetName();
+var[br] = my_tree->GetBranch(varnames[br])->GetLeaf(varnames[br]);
+
+sprintf(name,"hist_branch%d",br);  //automate name of histogram for each branch
+sprintf(title,"Overall #gamma spectrum for %s",varnames[br].Data()); //automate title of histogram for each branch
+h1_master[br] = new TH1D(name,title,n_chan,0,n_chan-1);  //defile the histogram for each branch
+
+
+  //Inside the loop of number e, run a loop of the entries (ent) goint to max number of entries (n_entries)
+  my_tree-> GetEntry(ent);
+  value_br[ent] = var[br]->GetValue();
+  cout<<Channel<<"     "<<varnames[br]<<"        "<<value_br[ent]<<endl;
+  h1_master[br] -> SetBinContent(Channel, value_br[ent]);
+
+
+//f. Later, running a different loop through 'nBranch', above histograms 'h1_master[br]' can be drawn for each branch
