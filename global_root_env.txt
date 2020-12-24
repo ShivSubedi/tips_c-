@@ -1,0 +1,20 @@
+//Shiv Subedi
+//You can use options like 'gStyle' to define common draw format in a macro
+//However, instead of defining the format in each macro, you can also write a file
+//to contain the format you want root to take for each compilation.
+//For this, follow following steps.
+
+//1. Define a file name (eg. 'root_global_env.C') and save it in the home directory
+ //a. In the beginning of this file, define 'mystyle' as:
+   TStyle *myStyle  = new TStyle("MyStyle","My Root Styles");
+ //b. Now, define all the common environment codes using 'myStyle'
+ //c. Apply the above defined new style
+  gROOT->SetStyle("MyStyle");
+
+
+//2. With your preferred text editor open file '~/.rootrc'
+
+//3. Inside the 'rootrc' file, write and save:
+Rint.Load:~/root_global_env.C
+
+//4. Now, everytime you run root, the above global environment is implemented.
