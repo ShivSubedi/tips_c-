@@ -24,7 +24,7 @@
 
  //6. For plotting errors as well
   (a) Replace TGraph -> TGraphErrors
-  (b) add columns after c11, for errors in X-axis and/or Y-axis
+  (b) gr-Draw(n,x,y,ex,ey);
 
 
 
